@@ -1,6 +1,6 @@
 name: Lint Files
 on:
-  issues:
+  pull_request:
     types:
       - labeled
       
