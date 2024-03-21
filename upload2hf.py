@@ -4,16 +4,12 @@ import os.path as osp
 import time
 from hashlib import sha1, sha256
 
+
+
+
 from huggingface_hub import HfApi
 from huggingface_hub.hf_api import CommitOperationAdd
 from termcolor import colored
-
-
-
-
-
-
-
 
 MAX_UPLOAD_FILES_PER_COMMIT = 64
 MAX_UPLOAD_SIZE_PER_COMMIT = 32 * 1024 * 1024 * 1024  # 64 GiB
