@@ -1,0 +1,48 @@
+name: Lint Files
+on:
+  issues:
+    types:
+      - labeled
+      
+jobs:
+  add-comment:
+    if: github.event.label.name == 'lint wanted'
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - name: Lint Files
+      - name: Check out Git repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GACTION_TOKEN }}
+          ref: ${{ github.event.pull_request.head.ref }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install Python dependencies
+        run: pip install black isort
+
+      - name: Lint repository on changed files only
+        run: |
+            black --line-length 120 .
+            isort .
+            
+      - name: Commit files
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add .
+
+          # If there are changes  commit and push
+          if [[ -n $(git status -s) ]]; then
+              echo "Changed detected"
+              echo "Commiting $CHANGED_FILES"
+              git commit -m "[CI-Lint] Fix code style issues with black and isort" -a
+              git push 
+          else
+              echo "No changes to commit."
+          fi
