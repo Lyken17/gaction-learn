@@ -6,7 +6,8 @@ on:
       
 jobs:
   add-comment:
-    if: github.event.label.name == 'lint wanted'
+    # if: github.event.label.name == 'lint wanted'
+    if: contains(github.event.pull_request.labels.*.name, 'lint wanted')
     runs-on: ubuntu-latest
     permissions:
       issues: write
