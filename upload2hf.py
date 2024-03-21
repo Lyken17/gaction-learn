@@ -12,9 +12,6 @@ from termcolor import colored
 
 
 
-
-
-
 MAX_UPLOAD_FILES_PER_COMMIT = 64
 MAX_UPLOAD_SIZE_PER_COMMIT = 32 * 1024 * 1024 * 1024  # 64 GiB
 
