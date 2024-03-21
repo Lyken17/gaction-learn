@@ -1,6 +1,14 @@
 name: Lint Files
 on:
-  pull_request
+  pull_request:
+    types: 
+    - opened
+    - edited
+    - closed
+    - reopened
+    - synchronize
+    - labeled
+    - unlabeled
 
 jobs:
   add-comment:
